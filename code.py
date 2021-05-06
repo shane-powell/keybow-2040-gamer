@@ -49,7 +49,7 @@ keymap = [
 ]
 
 # The colour to set the keys when pressed, yellow.
-rgb = (255, 0, 0)
+rgb = (0, 255, 0)
 
 # Attach handler functions to all of the keys
 for key in keys:
@@ -60,11 +60,19 @@ for key in keys:
         keyboard.send(keycode)
         key.set_led(*rgb)
 
+        if key.number == 0:
+            key.set_led(255,0,0)
+
+        if key.number == 3:
+            keybow.rotate(90)
+        print(key.number)
+
     # A release handler that turns off the LED
     @keybow.on_release(key)
     def release_handler(key):
         key.led_off()
 
+keybow.rotate(90)
 
 while True:
     # Always remember to call keybow.update()!
