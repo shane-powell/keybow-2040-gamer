@@ -88,6 +88,7 @@ for key in keys:
     @keybow.on_press(key)
     def press_handler(key):
         keycode = keymap[key.number]
+        print("press", keycode)
         keyboard.press(keycode)
         prev_rgb = key.rgb
         key.set_led(*click_rgb)
@@ -108,8 +109,10 @@ for key in keys:
     # A release handler that turns off the LED
     @keybow.on_release(key)
     def release_handler(key):
-        key.set_led(*key.rgb)
+        keycode = keymap[key.number]
+        print("release", keycode)
         keyboard.release(keycode)
+        key.set_led(*key.rgb)
 keybow.rotate(90)
 set_leds()
 while True:
