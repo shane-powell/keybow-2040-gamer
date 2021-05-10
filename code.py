@@ -36,12 +36,12 @@ keymap = [
     Keycode.THREE,
     Keycode.FOUR,
     Keycode.FIVE,
-    Keycode.SIX,
+    Keycode.UP_ARROW,
     Keycode.SEVEN,
     Keycode.EIGHT,
-    Keycode.NINE,
-    Keycode.A,
-    Keycode.B,
+    Keycode.LEFT_ARROW,
+    Keycode.DOWN_ARROW,
+    Keycode.RIGHT_ARROW,
     Keycode.C,
     Keycode.D,
     Keycode.E,
@@ -51,9 +51,18 @@ keymap = [
 # The colour to set the keys when pressed, yellow.
 rgb = (0, 255, 0)
 
+arrow_rgb = (0, 255, 0)
+
 # Attach handler functions to all of the keys
 for key in keys:
     # A press handler that sends the keycode and turns on the LED
+
+    if any(x == keymap[key.number] for x in (Keycode.UP_ARROW, Keycode.LEFT_ARROW,
+    Keycode.DOWN_ARROW,
+    Keycode.RIGHT_ARROW)):
+        key.set_led(*arrow_rgb)
+
+
     @keybow.on_press(key)
     def press_handler(key):
         keycode = keymap[key.number]
@@ -72,7 +81,7 @@ for key in keys:
     def release_handler(key):
         key.led_off()
 
-keybow.rotate(90)
+#keybow.rotate(90)
 
 while True:
     # Always remember to call keybow.update()!
